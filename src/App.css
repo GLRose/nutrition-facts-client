@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;700&family=Poppins:wght@300&display=swap");
+
+* {
+  font-family: "Poppins";
+}
+body {
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(148, 78, 228));
+}
