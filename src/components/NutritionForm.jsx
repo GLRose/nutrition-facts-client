@@ -3,7 +3,7 @@ import "../components/nutrition-form.css";
 import axios from "axios";
 
 const NutritionForm = () => {
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState('');
   const [food, setFood] = useState([]);
   const [label, setLabel] = useState(null);
 
