@@ -3,8 +3,9 @@ import "../components/nutrition-form.css";
 import axios from "axios";
 
 const NutritionForm = () => {
-  const [query, setQuery] = useState("apple");
+  const [query, setQuery] = useState("");
   const [food, setFood] = useState([]);
+  const [label, setLabel] = useState(null);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -15,20 +16,21 @@ const NutritionForm = () => {
     setFood([]);
     const options = {
       method: "GET",
-      url: "https://nutrition-facts-glrose.herokuapp.com/foods",
+      url: "http://localhost:8080/foods",
       params: {
-        ingr: query,
+        upc: query,
       },
     };
 
     axios
       .request(options)
       .then((response) => {
-        const nutrientsCopy = JSON.parse(JSON.stringify(response.data.parsed[0].food.nutrients));
-        console.log(response.data);
+        const nutrientsCopy = JSON.parse(JSON.stringify(response.data.hints[0].food.nutrients));
+        // console.log(response.data);
+        setLabel(response.data.hints[0].food.label);
         for (const [key, value] of Object.entries(nutrientsCopy)) {
-          console.log(`${key}: ${value}`);
-          setFood((food) => [...food, key, value]);
+          // console.log(`${key}: ${value}`);
+          setFood((food) => [...food, key, value.toFixed(2)]);
         }
       })
       .catch((error) => {
@@ -43,20 +45,20 @@ const NutritionForm = () => {
             <li className="nutrition-item nutrition-item-1">
               <h1>Nutrition Information</h1>
               <label id="nutrition-label" htmlFor="food-query">
-                Search For food . . .
+                Search Using UPC Code . . .
               </label>
             </li>
             <li className="nutrition-item nutrition-item-2">
-              <input type="text" id="food-query" value={query} onChange={handleChange}></input>
+              <input type="text" id="food-query" placeholder="UPC Code" value={query} onChange={handleChange}></input>
             </li>
             <li className="nutrition-item nutrition-item-3">
               <input id="submit-button" type="submit" value="Search" onClick={handleClick} />
             </li>
             <li className="nutrition-item nutrition-item-4">
-              <h1>{query}</h1>
-              <h3>CALORIES: {food[1]}</h3>
-              <h3>PROTIEN: {food[3]}</h3>
-              <h3>FAT: {food[5]}</h3>
+              <h1>UPC Code: {query}</h1>
+              <h2>{label}</h2>
+              <h2>K CALORIES: {food[1]}</h2>
+              <h2>Grams of FAT: {food[3]}</h2>
             </li>
           </ul>
         </form>
