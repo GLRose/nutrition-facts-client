@@ -3,39 +3,43 @@ import "../components/nutrition-form.css";
 import axios from "axios";
 
 const NutritionForm = () => {
-  const [query, setQuery] = useState('');
-  const [food, setFood] = useState([]);
+  const [query, setQuery] = useState(" ");
+  const [food, setFood] = useState({});
   const [label, setLabel] = useState(null);
+  const [serving, setServing] = useState(null);
+  const [servingLabel, setServingLabel] = useState(null);
 
   const handleChange = (e) => {
     setQuery(e.target.value);
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setFood([]);
-    const options = {
-      method: "GET",
-      url: "https://upc-nutrition-backend.herokuapp.com/foods",
-      params: {
-        upc: query,
-      },
-    };
+  const options = {
+    method: "GET",
+    url: "http://localhost:8080/foods",
+    params: {
+      upc: query,
+    },
+  };
 
+  const nutrientsGetRequest = (e) => {
     axios
       .request(options)
       .then((response) => {
-        const nutrientsCopy = JSON.parse(JSON.stringify(response.data.hints[0].food.nutrients));
-        // console.log(response.data);
         setLabel(response.data.hints[0].food.label);
-        for (const [key, value] of Object.entries(nutrientsCopy)) {
-          // console.log(`${key}: ${value}`);
-          setFood((food) => [...food, key, value.toFixed(2)]);
-        }
+        setServing(response.data.hints[0].food.servingSizes[0].quantity)
+        setServingLabel(response.data.hints[0].food.servingSizes[0].label)
+        setFood(response.data.hints[0].food.nutrients);
+        console.log(response.data.hints[0].food.nutrients)
+        console.log(response.data)
       })
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    nutrientsGetRequest();
   };
   return (
     <div className="wrapper">
@@ -57,8 +61,12 @@ const NutritionForm = () => {
             <li className="nutrition-item nutrition-item-4">
               <h1>UPC Code: {query}</h1>
               <h2>{label}</h2>
-              <h2>K CALORIES: {food[1]}</h2>
-              <h2>Grams of FAT: {food[3]}</h2>
+              <h2>Serving Size: {`${serving} ${servingLabel}s`}</h2>
+              {<p>Calories: {Object.values(food)[0]}</p>}
+              {<p>Fat  {Object.values(food)[1]}</p>}
+              {<p>Sugar : {Object.values(food)[6]}</p>}
+              {<p>Sugar Added : {Object.values(food)[7]} grams</p>}
+              {<p>Protein Content : {Object.values(food)[8]} %</p>}
             </li>
           </ul>
         </form>
