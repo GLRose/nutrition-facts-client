@@ -3,11 +3,11 @@ import "../components/nutrition-form.css";
 import axios from "axios";
 
 const NutritionForm = () => {
-  const [query, setQuery] = useState(" ");
+  const [query, setQuery] = useState('');
   const [food, setFood] = useState({});
-  const [label, setLabel] = useState(null);
-  const [serving, setServing] = useState(null);
-  const [servingLabel, setServingLabel] = useState(null);
+  const [label, setLabel] = useState('');
+  const [serving, setServing] = useState('');
+  const [servingLabel, setServingLabel] = useState('');
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -63,9 +63,9 @@ const NutritionForm = () => {
               <h2>{label}</h2>
               <h2>Serving Size: {`${serving} ${servingLabel}s`}</h2>
               {<p>Calories: {Object.values(food)[0]}</p>}
-              {<p>Fat  {Object.values(food)[1]}</p>}
-              {<p>Sugar : {Object.values(food)[6]}</p>}
-              {<p>Sugar Added : {Object.values(food)[7]} grams</p>}
+              {<p>Fat  {Object.values(food)[1]}g</p>}
+              {<p>Sugar : {Object.values(food)[6]}g</p>}
+              {<p>Sugar Added : {Object.values(food)[7]}g</p>}
               {<p>Protein Content : {Object.values(food)[8]} %</p>}
             </li>
           </ul>
