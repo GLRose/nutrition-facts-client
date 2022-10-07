@@ -15,7 +15,7 @@ const NutritionForm = () => {
 
   const options = {
     method: "GET",
-    url: "http://localhost:8080/foods",
+    url: "https://upc-nutrition-client.herokuapp.com/",
     params: {
       upc: query,
     },
