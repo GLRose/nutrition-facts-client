@@ -4,5 +4,6 @@
   font-family: "Poppins";
 }
 body {
-  background-image: linear-gradient(rgb(255, 255, 255), rgb(148, 78, 228));
+  /* background-image: linear-gradient(rgb(255, 255, 255), rgb(148, 78, 228)); */
+  background-color: rgb(24, 128, 173);
 }
