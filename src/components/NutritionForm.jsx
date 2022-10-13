@@ -3,11 +3,11 @@ import "../components/nutrition-form.css";
 import axios from "axios";
 
 const NutritionForm = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [food, setFood] = useState({});
-  const [label, setLabel] = useState('');
-  const [serving, setServing] = useState('');
-  const [servingLabel, setServingLabel] = useState('');
+  const [label, setLabel] = useState("");
+  const [serving, setServing] = useState("");
+  const [servingLabel, setServingLabel] = useState("");
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -26,11 +26,11 @@ const NutritionForm = () => {
       .request(options)
       .then((response) => {
         setLabel(response.data.hints[0].food.label);
-        setServing(response.data.hints[0].food.servingSizes[0].quantity)
-        setServingLabel(response.data.hints[0].food.servingSizes[0].label)
+        setServing(response.data.hints[0].food.servingSizes[0].quantity);
+        setServingLabel(response.data.hints[0].food.servingSizes[0].label);
         setFood(response.data.hints[0].food.nutrients);
-        console.log(response.data.hints[0].food.nutrients)
-        console.log(response.data)
+        console.log(response.data.hints[0].food.nutrients);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -58,16 +58,18 @@ const NutritionForm = () => {
             <li className="nutrition-item nutrition-item-3">
               <input id="submit-button" type="submit" value="Search" onClick={handleClick} />
             </li>
-            <li className="nutrition-item nutrition-item-4">
-              <h1>UPC Code: {query}</h1>
-              <h2>{label}</h2>
-              <h2>Serving Size: {`${serving} ${servingLabel}s`}</h2>
-              {<p>Calories: {Object.values(food)[0]}</p>}
-              {<p>Fat  {Object.values(food)[1]}g</p>}
-              {<p>Sugar : {Object.values(food)[6]}g</p>}
-              {<p>Sugar Added : {Object.values(food)[7]}g</p>}
-              {<p>Protein Content : {Object.values(food)[8]} %</p>}
-            </li>
+            {Object.values(food)[0] && (
+              <li className="nutrition-item nutrition-item-4">
+                <h1>UPC Code: {query}</h1>
+                <h2>{label}</h2>
+                <h2>Serving Size: {`${serving} ${servingLabel}`}</h2>
+                {<p>Calories: {Object.values(food)[0]}</p>}
+                {<p>Fat {Object.values(food)[1].toFixed(1) + "%"}</p>}
+                {<p>Sugar : {Object.values(food)[6].toFixed(1) + " grams"}</p>}
+                {<p>Sugar Added : {Object.values(food)[7].toFixed(1) + " grams"}</p>}
+                {<p>Protein Content : {Object.values(food)[8].toFixed(1) + " grams"} </p>}
+              </li>
+            )}
           </ul>
         </form>
       </div>
