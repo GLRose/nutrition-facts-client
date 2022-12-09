@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.acf08c25.css",
-    "main.js": "/static/js/main.4c63f396.js",
-    "index.html": "/index.html",
-    "main.acf08c25.css.map": "/static/css/main.acf08c25.css.map",
-    "main.4c63f396.js.map": "/static/js/main.4c63f396.js.map"
+    "main.css": "/nutrition-facts-client/static/css/main.acf08c25.css",
+    "main.js": "/nutrition-facts-client/static/js/main.4c63f396.js",
+    "index.html": "/nutrition-facts-client/index.html",
+    "main.acf08c25.css.map": "/nutrition-facts-client/static/css/main.acf08c25.css.map",
+    "main.4c63f396.js.map": "/nutrition-facts-client/static/js/main.4c63f396.js.map"
   },
   "entrypoints": [
     "static/css/main.acf08c25.css",
